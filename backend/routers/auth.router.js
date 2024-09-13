@@ -1,0 +1,27 @@
+const express = require("express");
+const router = express.Router();
+const authController = require("../controllers/auth.controller");
+const { verifySignUp } = require("../middlewares");
+
+router.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Headers",
+
+    "x-access-token, Origin, Content-Type, Accept"
+  );
+  next();
+});
+//Auth
+
+//PORT =>  http://localhost:5000/api/v1/auth/hotel/signup
+
+router.post(
+  "/hotel/signup",
+  [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRoleExisted],
+  authController.signup
+);
+
+//PORT => http://localhost:5000/api/v1/auth/hotel/signin
+router.post("/hotel/signin", authController.signin);
+
+module.exports = router;
