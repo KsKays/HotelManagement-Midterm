@@ -1,72 +1,82 @@
 const { where } = require("sequelize");
-const Hotel = require("../models/hotel.model"); //ต้อง import >> (../models/restaurant.model)
+const Booking = require("../models/booking.model"); //ต้อง import >> (../models/restaurant.model)
 
-//Create and Save a new Hotel
+//Create and Save a new Booking
 exports.create = async (req, res) => {
-  const { roomName, roomType, roomImage, roomDescription, roomPrice } =
+  const { roomName, username, checkIn, checkOut, bookingStatus, personAmount } =
     req.body; //สลายโครงสร้าง
   //Validate data
-  if (!roomName || !roomType || !roomImage || !roomDescription || !roomPrice) {
+  if (
+    !roomName ||
+    !username ||
+    !checkIn ||
+    !checkOut ||
+    !bookingStatus ||
+    !personAmount
+  ) {
     res.status(400).send({
       message: "Rooms can not be empty!",
     });
   }
 
-  await Hotel.findOne({ where: { roomName: roomName } }).then((hotel) => {
+  await Booking.findOne({ where: { roomName: roomName } }).then((booking) => {
     if (
       !roomName ||
-      !roomType ||
-      !roomImage ||
-      !roomDescription ||
-      !roomPrice
+      !username ||
+      !checkIn ||
+      !checkOut ||
+      !bookingStatus ||
+      !personAmount
     ) {
       return res.status(400).send({
         message: "Rooms cannot be empty!",
       });
     }
 
-    // create a Hotel สร้าง Hotel
-    const newRooms = {
+    // create a Booking สร้าง Booking
+    const newBooking = {
       roomName: roomName,
-      roomType: roomType,
-      roomImage: roomImage,
-      roomDescription: roomDescription,
-      roomPrice: roomPrice,
+      username: username,
+      checkIn: checkIn,
+      checkOut: checkOut,
+      bookingStatus: bookingStatus,
+      personAmount: personAmount,
     };
-    Hotel.create(newRooms)
+    Booking.create(newBooking)
       .then((data) => {
         res.send(data);
       })
       .catch((error) => {
         res.status(500).send({
           message:
-            error.massage || "Somthing error occured while creating the Hotel.",
+            error.massage ||
+            "Somthing error occured while creating the Booking.",
         });
       });
   });
 };
 
-//Get all Hotel สร้าง Get all
+//Get all Booking สร้าง Get all
 exports.getAll = async (req, res) => {
-  await Hotel.findAll()
+  await Booking.findAll()
     .then((data) => {
       res.send(data);
     })
     .catch((error) => {
       res.status(500).send({
         message:
-          error.massage || "Somthing error occured while creating the Hotel.",
+          error.massage || "Somthing error occured while creating the Booking.",
       });
     });
 };
 
-//Get By ID Hotel สร้าง Get By ID
+//Get By ID Booking สร้าง Get By ID
 exports.getById = async (req, res) => {
   const id = req.params.id;
-  await Hotel.findByPk(id)
+  await Booking.findByPk(id)
     .then((data) => {
       if (!data) {
-        res.status(404).send({ message: "No found Hotel with id " + id });
+        res.status(404).send({ message: "No found Booking with id " + id });
       } else {
         res.send(data);
       }
@@ -83,35 +93,35 @@ exports.getById = async (req, res) => {
 //UpdateById restaurant
 exports.update = async (req, res) => {
   const id = req.params.id;
-  await Hotel.update(req.body, {
+  await Booking.update(req.body, {
     where: {
       id: id,
     },
   })
     .then((num) => {
       if (num == 1) {
-        res.send({ message: "Hotel was update successfully" });
+        res.send({ message: "Booking was update successfully" });
       } else {
         res.send({
           message:
-            "Cannot update Hotel with id" +
+            "Cannot update Booking with id" +
             id +
-            ". Maybe Hotel was not found or res.body is empty!",
+            ". Maybe Booking was not found or res.body is empty!",
         });
       }
     })
     .catch((error) => {
       res.status(500).send({
         message:
-          error.massage || "Somthing error occured while creating the Hotel.",
+          error.massage || "Somthing error occured while creating the Booking.",
       });
     });
 };
 
-//Delete Hotel
+//Delete Booking
 exports.delete = async (req, res) => {
   const id = req.params.id;
-  await Hotel.destroy({
+  await Booking.destroy({
     where: {
       id: id,
     },
@@ -128,7 +138,7 @@ exports.delete = async (req, res) => {
     .catch((error) => {
       res.status(500).send({
         message:
-          error.massage || "Somthing error occured while creating the Hotel.",
+          error.massage || "Somthing error occured while creating the Booking.",
       });
     });
 };

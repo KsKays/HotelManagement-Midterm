@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
 const hotelRouter = require("./routers/hotel.router");
+const bookingRouter = require("./routers/booking.router");
 const authRouter = require("./routers/auth.router");
 const db = require("./models/"); //index
 const role = db.Role;
@@ -14,7 +15,6 @@ const coreOption = {
 };
 
 //Dev Mode
-
 // db.sequelize.sync({ force: true }).then(() => {
 //   initRole();
 //   console.log("Drop and Sync Database");
@@ -32,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //use Router
+app.use("/api/v1/booking", bookingRouter);
 app.use("/api/v1/hotel", hotelRouter);
 app.use("/api/v1/auth/", authRouter);
 

@@ -4,14 +4,13 @@ const sequelize = require("./db");
 
 //define DB Schema
 
-//สร้างชื่อของ Table Restaurant และสร้างข้อมูล(attribute)
 const Hotel = sequelize.define("hotel", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  roomNumber: {
+  roomName: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -23,15 +22,19 @@ const Hotel = sequelize.define("hotel", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  isAvailable: {
-    type: DataTypes.BOOLEAN,
+  roomDescription: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  roomPrice: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
 });
 
 Hotel.sync({ force: false })
   .then(() => {
-    console.log("Table created or already exists");
+    console.log("Hotel Table created or already exists");
   })
   .catch((error) => {
     console.log("Error creating table: ", error);
