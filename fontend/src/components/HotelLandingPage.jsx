@@ -1,5 +1,5 @@
 import roomImg from "../../public/Image/rooms-photo.jpg";
-import BookingBar from "./BookingBar";
+//import BookingBar from "./BookingBar";
 
 const HotelLandingPage = () => {
   return (
@@ -14,10 +14,19 @@ const HotelLandingPage = () => {
       <div className="absolute text-center top-[30%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-7xl">
         <p className="font-chonburi mb-5 text-3xl">Hotel & Spa</p>
         <h1 className="font-jamjuree m-5">THE BLOSSOM HIBIRI</h1>
+        <p className="text-2xl">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero,
+          inventore!
+        </p>
       </div>
       {/* Booking Bar */}
-      <div className="absolute top-[40%] bottom-10 left-1/2 transform -translate-x-1/2 w-full px-4 max-w-4xl">
-        <BookingBar />
+      <div className="absolute top-[45%] bottom-10 left-1/2 transform -translate-x-1/2 px-4 max-w-4xl">
+        <a href="/roomscard" className="btn btn-info text-white mx-2">
+          Check Room!
+        </a>
+        <a href="/addBooking" className="btn no-animation mx-2">
+          Booking Now!
+        </a>
       </div>
     </div>
   );

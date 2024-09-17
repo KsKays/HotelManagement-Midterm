@@ -1,38 +1,45 @@
-import api from "./api";
-const VITE_HOTEL_API = import.meta.env.VITE_HOTEL_API;
+import api from "./api"; // Import the Axios instance with base URL
+const HOTEL_API = import.meta.env.VITE_HOTEL_API; // Import the hotel API path
+const BOOKING_API = import.meta.env.VITE_BOOKING_API;
 
-//get all hotels
+// get all hotels
 const getAllHotel = async () => {
-  return await api.get(VITE_HOTEL_API);
+  return await api.get(HOTEL_API); // This will use the base URL + /api/v1/hotel
 };
 
-//get hotels by Id
+// get hotel by Id
 const getHotelById = async (id) => {
-  return await api.get(VITE_HOTEL_API + `/${id}`);
+  return await api.get(`${HOTEL_API}/${id}`); // This will use the base URL + /api/v1/hotel/{id}
 };
 
-// update a hotel date
+// update a hotel
 const editHotel = async (id, hotel) => {
-  return await api.put(VITE_HOTEL_API + `/${id}`, hotel);
+  return await api.put(`${HOTEL_API}/${id}`, hotel);
 };
 
-//delete hotels
+// delete hotel
 const deleteHotel = async (id) => {
-  return await api.delete(VITE_HOTEL_API + `/${id}`);
+  return await api.delete(`${HOTEL_API}/${id}`);
 };
 
-//add hotels
+// add new hotel
 const insertHotel = async (hotel) => {
-  return await api.post(VITE_HOTEL_API, hotel);
+  return await api.post(HOTEL_API, hotel);
 };
 
-//export public function
-const hotelService = {
+// ADD BOOKING
+const addNewBooking = async (bookings) => {
+  return await api.post(BOOKING_API, bookings);
+};
+
+// export the services
+const HotelService = {
   getAllHotel,
   getHotelById,
   editHotel,
   deleteHotel,
   insertHotel,
+  addNewBooking, //ADD BOOKING
 };
 
-export default hotelService;
+export default HotelService;

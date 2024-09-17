@@ -6,18 +6,6 @@ exports.create = async (req, res) => {
   const { roomName, username, checkIn, checkOut, bookingStatus, personAmount } =
     req.body; //สลายโครงสร้าง
   //Validate data
-  if (
-    !roomName ||
-    !username ||
-    !checkIn ||
-    !checkOut ||
-    !bookingStatus ||
-    !personAmount
-  ) {
-    res.status(400).send({
-      message: "Rooms can not be empty!",
-    });
-  }
 
   await Booking.findOne({ where: { roomName: roomName } }).then((booking) => {
     if (

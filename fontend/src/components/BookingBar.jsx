@@ -3,7 +3,7 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
-import hotelService from "../services/hotel.service";
+import HotelService from "../services/hotel.service";
 
 const BookingBar = () => {
   const [rooms, setRooms] = useState([]);
@@ -16,7 +16,7 @@ const BookingBar = () => {
 
   useEffect(() => {
     const fetchHotel = async () => {
-      setRooms(await hotelService.getAllHotel());
+      setRooms(await HotelService.getAllHotel());
     };
     fetchHotel();
   }, []);
@@ -27,11 +27,6 @@ const BookingBar = () => {
 
   const handleChange = (ranges) => {
     setDate(ranges.selection);
-  };
-
-  //TODOS
-  const handleSubmit = async (e) => {
-    e.preventDefault();
   };
 
   return (
@@ -101,12 +96,9 @@ const BookingBar = () => {
         </div>
       </div>
       <div className="button mt-8 text-center">
-        <button
-          onClick={handleSubmit}
-          className="btn btn-active btn-neutral text-white "
-        >
+        <a href="/addrooms" className="btn btn-active btn-neutral text-white ">
           BOOK NOW
-        </button>
+        </a>
       </div>
     </div>
   );

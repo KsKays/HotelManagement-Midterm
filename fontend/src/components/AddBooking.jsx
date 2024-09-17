@@ -1,50 +1,54 @@
 import { useState } from "react";
 import HotelService from "../services/hotel.service";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Addrooms = () => {
+const AddBooking = () => {
   const navigate = useNavigate();
-
-  const [rooms, setRooms] = useState({
-    roomName: "",
-    roomType: "",
-    roomImage: "",
-    roomDescription: "",
-    roomPrice: "",
+  const location = useLocation();
+  const { roomName } = location.state;
+  // Updated state to reflect booking fields
+  const [bookings, setBooking] = useState({
+    roomName: roomName,
+    username: "",
+    checkIn: "",
+    checkOut: "",
+    bookingStatus: "confirmed",
+    personAmount: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRooms({ ...rooms, [name]: value });
+    setBooking({ ...bookings, [name]: value }); // Update to setBooking
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(bookings);
 
     try {
-      // Call HotelService to add the rooms
-      const response = await HotelService.insertHotel(rooms); // Ensure you're passing the correct data
+      const response = await HotelService.addNewBooking(bookings);
+      console.log(response); // ตรวจสอบการตอบกลับจาก API
 
-      // Check the response status
       if (response.status === 200) {
         Swal.fire({
-          title: "Room Added",
-          text: "Your room has been successfully added.",
+          title: "Booking Added",
+          text: "Your booking has been successfully added.",
           icon: "success",
         });
         navigate("/"); // Redirect to homepage or any other route
       } else {
         Swal.fire({
-          title: "Room Addition Failed",
-          text: "The room could not be added.",
+          title: "Booking Failed",
+          text: "The booking could not be added.",
           icon: "error",
         });
       }
     } catch (error) {
+      console.log(error); // ตรวจสอบ error ที่เกิดขึ้น
       Swal.fire({
-        title: "Room Addition Failed",
-        text: error?.message || "An error occurred while adding the room",
+        title: "Booking Failed",
+        text: error?.message || "An error occurred while adding the booking",
         icon: "error",
       });
     }
@@ -53,72 +57,95 @@ const Addrooms = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="max-w-md mx-auto rounded-lg space-y-6 text-start ">
-        <form className="bg-slate-50 drop-shadow-lg rounded px-8 pt-6 pb-8 mb-4 w-96">
+        <form
+          className="bg-slate-50 drop-shadow-lg rounded px-8 pt-6 pb-8 mb-4 w-96"
+          onSubmit={handleSubmit}
+        >
+          {/* Room Name */}
           <div className="relative">
             <span className="block text-lg font-medium text-gray-700 mt-3">
-              rooms Name
+              Room Name
             </span>
             <input
               type="text"
               className="w-full pl-4 pr-4 py-3 text-ms border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="rooms Name"
+              placeholder="Room Name"
               name="roomName"
-              value={rooms.roomName}
+              value={bookings.roomName}
               onChange={handleChange}
             />
           </div>
 
+          {/* Username */}
           <div className="relative">
             <span className="block text-lg font-medium text-gray-700 mt-3">
-              rooms Type
+              Username
             </span>
             <input
               type="text"
               className="w-full pl-4 pr-4 py-3 text-ms border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="rooms Type"
-              name="roomType"
-              value={rooms.roomType}
+              placeholder="Username"
+              name="username"
+              value={bookings.username}
               onChange={handleChange}
             />
           </div>
 
+          {/* Check In Date */}
           <div className="relative">
             <span className="block text-lg font-medium text-gray-700 mt-3">
-              rooms Image URL
+              Check-In Date
             </span>
             <input
-              type="text"
+              type="date"
               className="w-full pl-4 pr-4 py-3 text-ms border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="rooms Image URL"
-              name="roomImage"
-              value={rooms.roomImage}
+              name="checkIn"
+              value={bookings.checkIn}
               onChange={handleChange}
             />
           </div>
 
+          {/* Check Out Date */}
           <div className="relative">
             <span className="block text-lg font-medium text-gray-700 mt-3">
-              rooms Description
-            </span>
-            <textarea
-              className="w-full pl-4 pr-4 py-3 text-ms border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="rooms Description"
-              name="roomDescription"
-              value={rooms.roomDescription}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="relative">
-            <span className="block text-lg font-medium text-gray-700 mt-3">
-              rooms Price
+              Check-Out Date
             </span>
             <input
-              type="text"
+              type="date"
               className="w-full pl-4 pr-4 py-3 text-ms border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="rooms Price"
-              name="roomPrice"
-              value={rooms.roomPrice}
+              name="checkOut"
+              value={bookings.checkOut}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Booking Status */}
+          <div className="relative">
+            <span className="block text-lg font-medium text-gray-700 mt-3">
+              Booking Status
+            </span>
+            <select
+              name="bookingStatus"
+              value={bookings.bookingStatus}
+              onChange={handleChange}
+              className="w-full pl-4 pr-4 py-3 text-ms border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+            >
+              <option value="confirmed">Confirmed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          {/* Person Amount */}
+          <div className="relative">
+            <span className="block text-lg font-medium text-gray-700 mt-3">
+              Person Amount
+            </span>
+            <input
+              type="number"
+              className="w-full pl-4 pr-4 py-3 text-ms border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              placeholder="Person Amount"
+              name="personAmount"
+              value={bookings.personAmount}
               onChange={handleChange}
             />
           </div>
@@ -127,9 +154,8 @@ const Addrooms = () => {
             <button
               className="btn btn-active btn-neutral text-white font-normal text-base"
               type="submit"
-              onClick={handleSubmit}
             >
-              Add rooms
+              Add Booking
             </button>
           </div>
         </form>
@@ -138,4 +164,4 @@ const Addrooms = () => {
   );
 };
 
-export default Addrooms;
+export default AddBooking;

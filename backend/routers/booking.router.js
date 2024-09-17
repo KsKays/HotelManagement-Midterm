@@ -4,12 +4,8 @@ const BookingController = require("../controllers/booking.controller");
 const { authJwt } = require("../middlewares");
 
 //Create a restaurant ( Admin and Mod can use it! )
-//PORT =>  http://localhost:5000/api/v1/hotel/
-router.post(
-  "/",
-  [authJwt.verifyToken, authJwt.isModOrAdmin],
-  BookingController.create
-);
+//PORT =>  http://localhost:5000/api/v1/booking/
+router.post("/", [authJwt.verifyToken], BookingController.create);
 
 //Get all restaurant
 router.get("/", BookingController.getAll);

@@ -4,6 +4,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Layout from "../components/Layout";
 import AddRooms from "../components/AddRooms";
+import RoomsCard from "../components/RoomsCard";
+import AddBooking from "../components/AddBooking";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: "/addrooms",
         element: <AddRooms />,
+      },
+      {
+        path: "/roomscard",
+        element: <RoomsCard />,
+      },
+      {
+        path: "/addBooking",
+        element: <AddBooking />,
       },
     ],
   },
