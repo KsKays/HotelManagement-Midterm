@@ -32,6 +32,21 @@ const addNewBooking = async (bookings) => {
   return await api.post(BOOKING_API, bookings);
 };
 
+// GET BOOKING
+const getAllBooking = async () => {
+  return await api.get(BOOKING_API); // This will use the base URL + /api/v1/hotel
+};
+
+// DELETE BOOKING
+const deleteBooking = async (id) => {
+  return await api.delete(`${BOOKING_API}/${id}`);
+};
+
+// UDATE BOOKING
+const editBooking = async (id, bookings) => {
+  return await api.put(`${BOOKING_API}/${id}`, bookings);
+};
+
 // export the services
 const HotelService = {
   getAllHotel,
@@ -40,6 +55,9 @@ const HotelService = {
   deleteHotel,
   insertHotel,
   addNewBooking, //ADD BOOKING
+  getAllBooking, //GET BOOKING
+  deleteBooking, //DELETE BOOKING
+  editBooking, //UDATE BOOKING
 };
 
 export default HotelService;

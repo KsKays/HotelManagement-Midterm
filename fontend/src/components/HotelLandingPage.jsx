@@ -15,17 +15,14 @@ const HotelLandingPage = () => {
         <p className="font-chonburi mb-5 text-3xl">Hotel & Spa</p>
         <h1 className="font-jamjuree m-5">THE BLOSSOM HIBIRI</h1>
         <p className="text-2xl">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero,
-          inventore!
+          Restaurant. The lively open kitchen serves a buffet style breakfast
+          with specialties from both Western and Japanese cuisine!
         </p>
       </div>
       {/* Booking Bar */}
       <div className="absolute top-[45%] bottom-10 left-1/2 transform -translate-x-1/2 px-4 max-w-4xl">
         <a href="/roomscard" className="btn btn-info text-white mx-2">
           Check Room!
-        </a>
-        <a href="/addBooking" className="btn no-animation mx-2">
-          Booking Now!
         </a>
       </div>
     </div>

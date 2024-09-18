@@ -1,63 +1,93 @@
-import { useEffect, useState } from "react";
-import HotelService from "../services/hotel.service";
+import { useState } from "react";
+//import HotelService from "../services/hotel.service";
 import Swal from "sweetalert2";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useAuthContext } from "../contexts/AuthContext";
+//import HotelService from "../services/hotel.service";
 
-const AddBooking = () => {
+const EditBooking = () => {
+  const { id: bookingId } = useParams();
   const navigate = useNavigate();
+  const { updateBooking } = useAuthContext();
   const location = useLocation();
-  const { roomName } = location.state;
+  const {
+    id,
+    roomName,
+    username,
+    checkIn,
+    checkOut,
+    bookingStatus,
+    personAmount,
+  } = location.state;
   // Updated state to reflect booking fields
   const [bookings, setBooking] = useState({
-    roomName: "",
-    username: "",
-    checkIn: "",
-    checkOut: "",
-    bookingStatus: "confirmed",
-    personAmount: "",
+    id: id,
+    roomName: roomName,
+    username: username,
+    checkIn: checkIn,
+    checkOut: checkOut,
+    bookingStatus: bookingStatus,
+    personAmount: personAmount,
   });
-
-  useEffect(() => {
-    if (roomName) {
-      setBooking((prevBookings) => ({
-        ...prevBookings, // Spread the existing properties
-        roomName: roomName, // Update only the roomName field
-      }));
-    }
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBooking({ ...bookings, [name]: value }); // Update to setBooking
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   //console.log(bookings);
+
+  //   try {
+  //     // console.log(id);
+  //     console.log(bookings);
+
+  //     const response = await updateBooking(bookingId, bookings);
+
+  //     // const response = await HotelService.editBooking(id);
+  //     // console.log(response); // ตรวจสอบการตอบกลับจาก API
+
+  //     if (response.status === 200) {
+  //       Swal.fire({
+  //         title: "Booking Added",
+  //         text: "Your booking has been successfully added.",
+  //         icon: "success",
+  //       });
+  //       navigate("/bookingtable"); // Redirect to homepage or any other route
+  //     } else {
+  //       console.log("response.status", response.status);
+
+  //       Swal.fire({
+  //         title: "Booking Failed",
+  //         text: "The booking could not be added.",
+  //         icon: "error",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log(error); // ตรวจสอบ error ที่เกิดขึ้น
+  //     Swal.fire({
+  //       title: "Booking Failed",
+  //       text: error?.message || "An error occurred while adding the booking",
+  //       icon: "error",
+  //     });
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(bookings);
-
     try {
-      const response = await HotelService.addNewBooking(bookings);
-      console.log(response); // ตรวจสอบการตอบกลับจาก API
-
-      if (response.status === 200) {
-        Swal.fire({
-          title: "Booking Added",
-          text: "Your booking has been successfully added.",
-          icon: "success",
-        });
-        navigate("/"); // Redirect to homepage or any other route
-      } else {
-        Swal.fire({
-          title: "Booking Failed",
-          text: "The booking could not be added.",
-          icon: "error",
-        });
-      }
-    } catch (error) {
-      console.log(error); // ตรวจสอบ error ที่เกิดขึ้น
+      await updateBooking(bookingId, bookings);
       Swal.fire({
-        title: "Booking Failed",
-        text: error?.message || "An error occurred while adding the booking",
+        title: "Record Updated",
+        text: "Your financial record has been updated successfully.",
+        icon: "success",
+      });
+      navigate("/bookingtable");
+    } catch (error) {
+      Swal.fire({
+        title: "Update Failed",
+        text: error?.message || "An error occurred while updating the record.",
         icon: "error",
       });
     }
@@ -164,7 +194,7 @@ const AddBooking = () => {
               className="btn btn-active btn-neutral text-white font-normal text-base"
               type="submit"
             >
-              Add Booking
+              Save New Booking
             </button>
           </div>
         </form>
@@ -173,4 +203,4 @@ const AddBooking = () => {
   );
 };
 
-export default AddBooking;
+export default EditBooking;

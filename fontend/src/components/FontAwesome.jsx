@@ -4,9 +4,17 @@ import {
   faPlus,
   faUser,
   faUtensils,
+  faPenToSquare,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const HomeIcon = (props) => <FontAwesomeIcon icon={faHome} {...props} />;
+export const PenIcon = (props) => (
+  <FontAwesomeIcon icon={faPenToSquare} {...props} />
+);
+export const TrashIcon = (props) => (
+  <FontAwesomeIcon icon={faTrash} {...props} />
+);
 export const UserIcon = (props) => <FontAwesomeIcon icon={faUser} {...props} />;
 export const PlusIcon = (props) => <FontAwesomeIcon icon={faPlus} {...props} />;
 export const FoodIcon = (props) => (

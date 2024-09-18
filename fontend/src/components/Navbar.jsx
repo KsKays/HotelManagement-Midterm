@@ -13,12 +13,12 @@ const Navbar = () => {
     ROLES_ADMIN: [
       { name: "HOME", link: "/" },
       { name: "ADD", link: "/addrooms" },
-      { name: "Guest", link: "/addbooking" },
+      { name: "Guest", link: "/bookingtable" },
     ],
     ROLES_MODERATOR: [
       { name: "HOME", link: "/" },
       { name: "ADD", link: "/addrooms" },
-      { name: "Guest", link: "/addbooking" },
+      { name: "Guest", link: "/bookingtable" },
     ],
     ROLES_USER: [{ name: "HOME", link: "/" }],
   };

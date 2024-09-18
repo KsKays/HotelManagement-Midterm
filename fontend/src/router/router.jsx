@@ -6,6 +6,8 @@ import Layout from "../components/Layout";
 import AddRooms from "../components/AddRooms";
 import RoomsCard from "../components/RoomsCard";
 import AddBooking from "../components/AddBooking";
+import BookingTable from "../components/BookingTable";
+import EditBooking from "../components/EditBooking";
 
 const router = createBrowserRouter([
   {
@@ -34,8 +36,16 @@ const router = createBrowserRouter([
         element: <RoomsCard />,
       },
       {
-        path: "/addBooking",
+        path: "/addbooking",
         element: <AddBooking />,
+      },
+      {
+        path: "/bookingtable",
+        element: <BookingTable />,
+      },
+      {
+        path: "/editbooking/:id",
+        element: <EditBooking />,
       },
     ],
   },

@@ -8,7 +8,11 @@ const { authJwt } = require("../middlewares");
 router.post("/", [authJwt.verifyToken], BookingController.create);
 
 //Get all restaurant
-router.get("/", BookingController.getAll);
+router.get(
+  "/",
+  [authJwt.verifyToken, authJwt.isModOrAdmin],
+  BookingController.getAll
+);
 
 //Get ById restaurant
 router.get("/:id", [authJwt.verifyToken], BookingController.getById);

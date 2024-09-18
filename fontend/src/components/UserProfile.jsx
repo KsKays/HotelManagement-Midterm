@@ -1,11 +1,14 @@
 import { useAuthContext } from "../contexts/AuthContext";
 import { UserIcon } from "./FontAwesome";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const { logout } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
+    navigate("/");
   };
 
   return (
