@@ -57,9 +57,10 @@ const AddBooking = () => {
       console.log(error); // ตรวจสอบ error ที่เกิดขึ้น
       Swal.fire({
         title: "Booking Failed",
-        text: error?.message || "An error occurred while adding the booking",
+        text: "Booking error, please sign up or log in.",
         icon: "error",
       });
+      navigate("/register");
     }
   };
 

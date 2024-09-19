@@ -50,7 +50,7 @@ const RoomsCard = () => {
                 <p>{hotel.roomDescription}</p>
                 <div className="card-actions justify-end">
                   <div className="badge badge-outline">{hotel.roomType}</div>
-                  <div className="badge badge-outline">${hotel.roomPrice}</div>
+                  <div className="badge badge-outline">฿{hotel.roomPrice}</div>
                 </div>
               </div>
 

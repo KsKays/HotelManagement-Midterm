@@ -31,6 +31,7 @@ router.delete(
   hotelController.delete
 );
 
+// Hotel Search
 router.get("/search", hotelController.hotelSearch);
 
 module.exports = router;

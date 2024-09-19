@@ -13,10 +13,10 @@ const BookingTable = () => {
     fetchBookings();
   }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id, username) => {
     Swal.fire({
       title: "Are you sure?",
-      text: `Are you about to delete this record?`,
+      text: `Are you about to delete the booking made by ${username}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -26,7 +26,11 @@ const BookingTable = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         deleteBooking(id);
-        Swal.fire("Deleted!", `Record has been deleted.`, "success");
+        Swal.fire(
+          "Deleted!",
+          `The booking made by ${username} has been deleted.`,
+          "success"
+        );
       }
     });
   };
@@ -114,7 +118,9 @@ const BookingTable = () => {
                     {user.roles[0].includes("ROLES_ADMIN") ? (
                       <button
                         className="btn btn-error btn-sm mx-1 btn-outline hover:bg-red-600"
-                        onClick={() => handleDelete(booking.id)}
+                        onClick={() =>
+                          handleDelete(booking.id, booking.username)
+                        }
                       >
                         <TrashIcon />
                       </button>

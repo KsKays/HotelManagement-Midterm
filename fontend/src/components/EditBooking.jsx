@@ -79,15 +79,15 @@ const EditBooking = () => {
     try {
       await updateBooking(bookingId, bookings);
       Swal.fire({
-        title: "Record Updated",
-        text: "Your financial record has been updated successfully.",
+        title: "Booking Updated",
+        text: "The booking has been updated successfully.",
         icon: "success",
       });
       navigate("/bookingtable");
     } catch (error) {
       Swal.fire({
         title: "Update Failed",
-        text: error?.message || "An error occurred while updating the record.",
+        text: error?.message || "An error occurred while updating the booking.",
         icon: "error",
       });
     }

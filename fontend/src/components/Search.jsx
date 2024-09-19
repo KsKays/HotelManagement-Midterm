@@ -7,6 +7,7 @@ const Search = ({ setHotels }) => {
   const handleSearch = useCallback(async (e) => {
     console.log(e);
 
+    // Hotel Search
     const res = await HotelService.hotelSearch(e.target.value);
 
     setHotels(res.data.searched ?? []);
@@ -31,7 +32,7 @@ const Search = ({ setHotels }) => {
         <input
           type="text"
           className="grow"
-          placeholder="Search"
+          placeholder="Search Room"
           onChange={debouncedList}
         />
         <svg

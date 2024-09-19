@@ -133,6 +133,7 @@ exports.delete = async (req, res) => {
     });
 };
 
+// Hotel Search
 exports.hotelSearch = async (req, res) => {
   try {
     const search = req.query.name;

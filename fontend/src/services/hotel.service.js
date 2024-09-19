@@ -47,7 +47,7 @@ const editBooking = async (id, bookings) => {
   return await api.put(`${BOOKING_API}/${id}`, bookings);
 };
 
-// HotelSearch
+// Hotel Search
 const hotelSearch = async (name) => {
   return await api.get(`${HOTEL_API}/search?name=${name}`);
 };

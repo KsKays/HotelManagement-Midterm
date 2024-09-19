@@ -12,7 +12,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="relative dropdown dropdown-left dropdown-end">
+    <div className="relative dropdown  dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-circle avatar">
         <div className="w-10 rounded-full flex items-center justify-center">
           <UserIcon className="w-full h-full" />
