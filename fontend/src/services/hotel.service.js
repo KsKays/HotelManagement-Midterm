@@ -4,12 +4,12 @@ const BOOKING_API = import.meta.env.VITE_BOOKING_API;
 
 // get all hotels
 const getAllHotel = async () => {
-  return await api.get(HOTEL_API); // This will use the base URL + /api/v1/hotel
+  return await api.get(`${HOTEL_API}/all`); // This will use the base URL + /api/v1/hotel
 };
 
 // get hotel by Id
 const getHotelById = async (id) => {
-  return await api.get(`${HOTEL_API}/${id}`); // This will use the base URL + /api/v1/hotel/{id}
+  return await api.get(`${HOTEL_API}/room/${id}`); // This will use the base URL + /api/v1/hotel/{id}
 };
 
 // update a hotel
@@ -47,6 +47,11 @@ const editBooking = async (id, bookings) => {
   return await api.put(`${BOOKING_API}/${id}`, bookings);
 };
 
+// HotelSearch
+const hotelSearch = async (name) => {
+  return await api.get(`${HOTEL_API}/search?name=${name}`);
+};
+
 // export the services
 const HotelService = {
   getAllHotel,
@@ -58,6 +63,7 @@ const HotelService = {
   getAllBooking, //GET BOOKING
   deleteBooking, //DELETE BOOKING
   editBooking, //UDATE BOOKING
+  hotelSearch, // HotelSearch
 };
 
 export default HotelService;

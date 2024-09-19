@@ -3,7 +3,7 @@ const router = express.Router();
 const hotelController = require("../controllers/hotel.controller");
 const { authJwt } = require("../middlewares");
 
-//Create a restaurant ( Admin and Mod can use it! )
+//Create a Hotels ( Admin and Mod can use it! )
 //PORT =>  http://localhost:5000/api/v1/hotel/
 router.post(
   "/",
@@ -11,24 +11,26 @@ router.post(
   hotelController.create
 );
 
-//Get all restaurant
-router.get("/", hotelController.getAll);
+//Get all Hotels
+router.get("/all", hotelController.getAll);
 
-//Get ById restaurant
-router.get("/:id", [authJwt.verifyToken], hotelController.getById);
+//Get ById Hotels
+router.get("/room/:id", [authJwt.verifyToken], hotelController.getById);
 
-//Update a restaurant ( Admin and Mod can use it! )
+//Update a Hotels ( Admin and Mod can use it! )
 router.put(
   "/:id",
   [authJwt.verifyToken, authJwt.isModOrAdmin],
   hotelController.update
 );
 
-//Delete a restaurant ( Admin can use it! )
+//Delete a Hotels ( Admin can use it! )
 router.delete(
   "/:id",
   [authJwt.verifyToken, authJwt.isAdmin],
   hotelController.delete
 );
+
+router.get("/search", hotelController.hotelSearch);
 
 module.exports = router;

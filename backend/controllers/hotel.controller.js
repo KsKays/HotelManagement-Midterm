@@ -1,5 +1,6 @@
 const { where } = require("sequelize");
 const Hotel = require("../models/hotel.model"); //ต้อง import >> (../models/restaurant.model)
+const { Op } = require("sequelize");
 
 //Create and Save a new Hotel
 exports.create = async (req, res) => {
@@ -25,7 +26,7 @@ exports.create = async (req, res) => {
       });
     }
 
-    // create a Hotel สร้าง Hotel
+    // Create a Hotel สร้าง Hotel
     const newRooms = {
       roomName: roomName,
       roomType: roomType,
@@ -74,13 +75,12 @@ exports.getById = async (req, res) => {
     .catch((error) => {
       res.status(500).send({
         message:
-          error.massage ||
-          "Somthing error occured while creating the restaurant.",
+          error.massage || "Somthing error occured while creating the Hotel.",
       });
     });
 };
 
-//UpdateById restaurant
+//UpdateById
 exports.update = async (req, res) => {
   const id = req.params.id;
   await Hotel.update(req.body, {
@@ -131,4 +131,29 @@ exports.delete = async (req, res) => {
           error.massage || "Somthing error occured while creating the Hotel.",
       });
     });
+};
+
+exports.hotelSearch = async (req, res) => {
+  try {
+    const search = req.query.name;
+    const result = await Hotel.findAll({
+      where: {
+        [Op.or]: [
+          { roomName: { [Op.like]: `%${search}%` } }, // Search in roomName
+          { roomDescription: { [Op.like]: `%${search}%` } }, // Search in roomDescription
+        ],
+      },
+    });
+    res.send({
+      message: "Searched successfully",
+      searched: result,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).send({
+      message: error,
+      //error.massage || "Somthing error occured while creating the Hotel.",
+    });
+  }
 };

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import HotelService from "../services/hotel.service";
 import { useNavigate } from "react-router-dom";
+import Search from "./Search";
 
 const RoomsCard = () => {
   const [hotels, setHotels] = useState([]);
   const navigate = useNavigate();
+
   const handleSubmit = (roomName) => {
     navigate("/addBooking", {
       state: { roomName: roomName },
@@ -14,7 +16,6 @@ const RoomsCard = () => {
   const fetchHotel = async () => {
     try {
       const response = await HotelService.getAllHotel();
-
       setHotels(response.data);
     } catch (error) {
       console.log(error);
@@ -27,6 +28,7 @@ const RoomsCard = () => {
 
   return (
     <>
+      <Search setHotels={setHotels} />
       <div className="flex flex-wrap justify-center gap-4 pt-8">
         {hotels.map((hotel) => {
           return (

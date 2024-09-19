@@ -21,7 +21,7 @@ exports.create = async (req, res) => {
       });
     }
 
-    // create a Booking สร้าง Booking
+    // Create a Booking สร้าง Bookings
     const newBooking = {
       roomName: roomName,
       username: username,
@@ -78,7 +78,7 @@ exports.getById = async (req, res) => {
     });
 };
 
-//UpdateById restaurant
+//UpdateById แก้ไข Booking
 exports.update = async (req, res) => {
   const id = req.params.id;
   await Booking.update(req.body, {
@@ -106,7 +106,7 @@ exports.update = async (req, res) => {
     });
 };
 
-//Delete Booking
+//Delete Booking ลบ Booking
 exports.delete = async (req, res) => {
   const id = req.params.id;
   await Booking.destroy({
