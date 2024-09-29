@@ -13,6 +13,7 @@ const BookingTable = () => {
     fetchBookings();
   }, []);
 
+  // sss
   const handleDelete = (id, username) => {
     Swal.fire({
       title: "Are you sure?",
