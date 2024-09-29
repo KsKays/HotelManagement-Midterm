@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+const fontend_url = process.env.FONTEND_URL;
 
 const PORT = process.env.PORT || 5000;
 const hotelRouter = require("./routers/hotel.router");
@@ -11,7 +12,7 @@ const role = db.Role;
 const cors = require("cors");
 
 const coreOption = {
-  origin: "http://localhost:5173",
+  origin: fontend_url,
 };
 
 //Dev Mode
