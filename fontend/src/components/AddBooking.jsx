@@ -26,6 +26,7 @@ const AddBooking = () => {
     }
   }, []);
 
+  // sfd
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBooking({ ...bookings, [name]: value }); // Update to setBooking
